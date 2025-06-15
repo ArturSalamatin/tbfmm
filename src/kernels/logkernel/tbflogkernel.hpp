@@ -19,7 +19,7 @@ private:
     const RealType PIDiv2 = RealType(3.14159265358979323846264338327950288419716939937510582097494459230781640628620899863L / 2.0);
     const RealType PI2 = RealType(3.14159265358979323846264338327950288419716939937510582097494459230781640628620899863L * 2.0);
 
-    // //< Size of the data array computed using a suite relation
+    //< Size of the data array computed using a suite relation
     // static const int SizeArray = ((P + 2) * (P + 1)) / 2;
     // //< To have P*2 where needed
     // static const int P2 = P * 2;
@@ -36,19 +36,14 @@ private:
     const RealType widthAtLeafLevelDiv2;     //< width of box at leaf leve div 2
     const std::array<RealType, 2> boxCorner; //< position of the box corner
 public:
-/** Constructor, needs system information */
-    explicit TbfLogKernel(const SpacialConfiguration& inConfiguration)  :
-        spaceIndexSystem(inConfiguration),
-        boxWidth(inConfiguration.getBoxWidths()[0]),
-        treeHeight(int(inConfiguration.getTreeHeight())),
-        widthAtLeafLevel(inConfiguration.getLeafWidths()[0]),
-        widthAtLeafLevelDiv2(widthAtLeafLevel/2),
-        boxCorner(inConfiguration.getBoxCorner())
-    { }
-
-
-
-
+    explicit TbfLogKernel(const SpacialConfiguration &inConfiguration) : spaceIndexSystem(inConfiguration),
+                                                                         boxWidth(inConfiguration.getBoxWidths()[0]),
+                                                                         treeHeight(int(inConfiguration.getTreeHeight())),
+                                                                         widthAtLeafLevel(inConfiguration.getLeafWidths()[0]),
+                                                                         widthAtLeafLevelDiv2(widthAtLeafLevel / 2),
+                                                                         boxCorner(inConfiguration.getBoxCorner())
+    {
+    }
 
     TbfLogKernel(const TbfLogKernel &) = default;
     TbfLogKernel(TbfLogKernel &&) = default;
@@ -101,14 +96,14 @@ public:
 
     template <class CellSymbolicData, class LeafClass, class ParticlesClassValues, class ParticlesClassRhs>
     void L2P(const CellSymbolicData & /*inLeafIndex*/,
-             const LeafClass &inLeaf, const long int /*particlesIndexes*/[],
-             const ParticlesClassValues & /*inOutParticles*/, ParticlesClassRhs &inOutParticlesRhs,
+             [[maybe_unused]] const LeafClass &inLeaf, const long int /*particlesIndexes*/[],
+             const ParticlesClassValues & /*inOutParticles*/,[[maybe_unused]] ParticlesClassRhs &inOutParticlesRhs,
              const long int inNbParticles) const
     {
-        // for (int idxPart = 0; idxPart < inNbParticles; ++idxPart)
-        // {
-        //     inOutParticlesRhs[0][idxPart] += inLeaf[0];
-        // }
+        for (int idxPart = 0; idxPart < inNbParticles; ++idxPart)
+        {
+            // inOutParticlesRhs[0][idxPart] += inLeaf[0];
+        }
     }
 
     template <class LeafSymbolicData, class ParticlesClassValues, class ParticlesClassRhs>
